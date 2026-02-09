@@ -8,7 +8,7 @@ export const SignUp = () => {
     const [loading, setLoading] = useState('');
     const [error, setError] = useState('');
 
-    const {session} = UserAuth();
+    const {session, signUpNewUser} = UserAuth();
     console.log(session);
 
     const handleSubmit = (e) => {
