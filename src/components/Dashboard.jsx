@@ -11,7 +11,7 @@ export const Dashboard = () => {
         try {
             await signOut();
             navigate('/')
-        }catch(err){
+        } catch (err) {
             console.error("Error signing out:", err.message);
         }
     };
@@ -20,9 +20,11 @@ export const Dashboard = () => {
 
     return (
         <div className="dashboard">
-            <h1>Dashboard</h1>
-            <h2>Welcome, {session?.user?.email}</h2>
-            <button onClick={handleSignOut}>Sign Out</button>
+            <div className="inner-dashboard">
+                <h1>Dashboard</h1>
+                <p>Welcome, {session?.user?.email}</p>
+                <button onClick={handleSignOut} className="signout-button">Sign Out</button>
+            </div>
         </div>
     )
 };
