@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { UserAuth } from '../context/AuthContext.jsx';
+import '../styles/SignIn.scss';
 
 export const SignIn = () => {
     const [email, setEmail] = useState('');
@@ -30,11 +31,11 @@ export const SignIn = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSignin}>
-                <h2>Sign In</h2>
-                <p>Don't have an account? <Link to="/signup">Sign Up!</Link></p>
-                <div>
+        <div className="signin-container">
+            <form onSubmit={handleSignin} className="signin-form">
+                <p className="signin-title">Sign In</p>
+                <p className="signin-subtitle">Don't have an account? <Link to="/signup" className="signup-link">Sign Up!</Link></p>
+                <div className="signin-data">
                     <input
                         className='signin-input'
                         onChange={(e) => setEmail(e.target.value)}
@@ -47,9 +48,12 @@ export const SignIn = () => {
                         type="password"
                         placeholder="Password"
                     />
-                    <button type="submit" disabled={loading}>Sign In</button>
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="signin-button">Sign In</button>
                 </div>
-                {error && <p>{error}</p>}
+                {error && <p className="error-message">{error}</p>}
             </form>
         </div>
     )

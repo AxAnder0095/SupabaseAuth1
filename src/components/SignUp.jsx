@@ -1,11 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { UserAuth } from '../context/AuthContext.jsx';
+import '../styles/SignUp.scss';
 
 export const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState('');
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
     const { session, signUpNewUser } = UserAuth();
@@ -29,11 +30,11 @@ export const SignUp = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSignUp}>
-                <h2>Sign Up</h2>
-                <p>Already have an account? <Link to="/signin">Sign In!</Link></p>
-                <div>
+        <div className="signup-container">
+            <form onSubmit={handleSignUp} className="signup-form">
+                <p className="signup-title">Sign Up</p>
+                <p className="signup-subtitle">Already have an account? <Link to="/signin" className='signin-link'>Sign In!</Link></p>
+                <div className='signup-data'>
                     <input
                         className='signup-input'
                         onChange={(e) => setEmail(e.target.value)}
@@ -46,9 +47,12 @@ export const SignUp = () => {
                         type="password"
                         placeholder="Password"
                     />
-                    <button type="submit" disabled={loading}>Sign Up</button>
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className='signup-button'>Sign Up</button>
                 </div>
-                {error && <p>{error}</p>}
+                {error && <p className='error-message'>{error}</p>}
             </form>
         </div>
     )

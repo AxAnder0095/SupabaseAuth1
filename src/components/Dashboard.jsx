@@ -1,5 +1,6 @@
 import { UserAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import '../styles/Dashboard.scss';
 
 export const Dashboard = () => {
     const { session, signOut } = UserAuth();
@@ -18,7 +19,7 @@ export const Dashboard = () => {
     console.log(session);
 
     return (
-        <div>
+        <div className="dashboard">
             <h1>Dashboard</h1>
             <h2>Welcome, {session?.user?.email}</h2>
             <button onClick={handleSignOut}>Sign Out</button>
