@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { UserAuth } from '../context/AuthContext.jsx';
 
@@ -8,23 +8,47 @@ export const SignUp = () => {
     const [loading, setLoading] = useState('');
     const [error, setError] = useState('');
 
-    const {session, signUpNewUser} = UserAuth();
+    const { session, signUpNewUser } = UserAuth();
+    const navigate = useNavigate();
     console.log(session);
 
-    const handleSubmit = (e) => {
+    const handleSignUp = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        try {
+            const result = await signUpNewUser(email, password);
+
+            if (result.success) {
+                navigate('/dashboard');
+            }
+        } catch (error) {
+            setError("an error occurred during sign up. Please try again.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSignUp}>
                 <h2>Sign Up</h2>
                 <p>Already have an account? <Link to="/signin">Sign In!</Link></p>
                 <div>
-                    <input type="email" placeholder="Email" required />
-                    <input type="password" placeholder="Password" required />
-                    <button type="submit">Sign Up</button>
+                    <input
+                        className='signup-input'
+                        onChange={(e) => setEmail(e.target.value)}
+                        type="email"
+                        placeholder="Email"
+                    />
+                    <input
+                        className='signup-input'
+                        onChange={(e) => setPassword(e.target.value)}
+                        type="password"
+                        placeholder="Password"
+                    />
+                    <button type="submit" disabled={loading}>Sign Up</button>
                 </div>
+                {error && <p>{error}</p>}
             </form>
         </div>
     )
